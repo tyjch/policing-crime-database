@@ -1,0 +1,134 @@
+!Dataset
+columns:
+  Agency: !Column
+    date: false
+    description: Name of Agency
+    dtype: null
+    id: Agency
+    include: true
+    index: false
+    name: Agency
+    values: {}
+  Assault-FEB: !Column
+    date: false
+    description: Assaults in February
+    dtype: null
+    id: Assault-FEB
+    include: true
+    index: false
+    name: Assault-FEB
+    values: {}
+  Assault-JAN: !Column
+    date: false
+    description: Assaults in January
+    dtype: null
+    id: Assault-JAN
+    include: true
+    index: false
+    name: Assault-JAN
+    values: {}
+  Assault-MAR: !Column
+    date: false
+    description: Assaults in March
+    dtype: null
+    id: Assault-MAR
+    include: true
+    index: false
+    name: Assault-MAR
+    values: {}
+  City: !Column
+    date: false
+    description: City
+    dtype: null
+    id: City
+    include: true
+    index: false
+    name: City
+    values: {}
+  Murder-FEB: !Column
+    date: false
+    description: Murders in February
+    dtype: null
+    id: Murder-FEB
+    include: true
+    index: false
+    name: Murder-FEB
+    values: {}
+  Murder-JAN: !Column
+    date: false
+    description: Murders in January
+    dtype: null
+    id: Murder-JAN
+    include: true
+    index: false
+    name: Murder-JAN
+    values: {}
+  Murder-MAR: !Column
+    date: false
+    description: Murders in March
+    dtype: null
+    id: Murder-MAR
+    include: true
+    index: false
+    name: Murder-MAR
+    values: {}
+  State: !Column
+    date: false
+    description: Record state (Edited)
+    dtype: null
+    id: State
+    include: true
+    index: false
+    name: State
+    values: {}
+  Update: !Column
+    date: false
+    description: Last Update
+    dtype: null
+    id: Update
+    include: true
+    index: false
+    name: Update
+    values: {}
+  V1: !Column
+    date: false
+    description: Rapes in January
+    dtype: null
+    id: V1
+    include: true
+    index: false
+    name: V1
+    values: {}
+  V2: !Column
+    date: false
+    description: Rapes in February
+    dtype: null
+    id: V2
+    include: true
+    index: false
+    name: V2
+    values: {}
+  V3: !Column
+    date: false
+    description: Rapes in March
+    dtype: null
+    id: V3
+    include: true
+    index: false
+    name: V3
+    values: {}
+  Year: !Column
+    date: false
+    description: Record year
+    dtype: null
+    id: Year
+    include: true
+    index: false
+    name: Year
+    values: {}
+directory: /Users/programming/PycharmProjects/crime/datasets/ex1
+extension: tsv
+file: d1.tsv
+name: d1
+path: /Users/programming/PycharmProjects/crime/datasets/ex1/d1.tsv
+yaml: /Users/programming/PycharmProjects/crime/datasets/ex1/d1.yaml

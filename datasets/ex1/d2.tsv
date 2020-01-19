@@ -1,0 +1,4 @@
+Agency	Year	City	State	Assault-JAN	Assault-FEB	Assault-MAR	Murder-JAN	Murder-FEB	Murder-MAR	V1	V2	V3
+AG1	2000	Fullerton	50	0	1	2	a	b	c	x	y	z
+AG2	2001	Reno	49	3	4	5	d	e	f	x	y	z
+AG3	2002	Flagstaff	48	6	7	8	g	h	i	x	y	z

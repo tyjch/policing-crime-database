@@ -1,0 +1,4 @@
+
+class NoEngine(Exception):
+    pass
+
