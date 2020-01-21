@@ -74,7 +74,7 @@ columns:
     values: {}
   State: !Column
     date: false
-    description: Record state (Edited)
+    description: Record state
     dtype: null
     id: State
     include: true

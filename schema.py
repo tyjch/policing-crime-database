@@ -1,16 +1,17 @@
-import os
-import numpy as np
+import yaml
 import pandas as pd
 from yaml import YAMLObject
-import yaml
 from pprint import pprint
 from codebook import extract_codebook
-
 
 pd.set_option('display.max_columns', 50)
 pd.set_option('display.width', 1000)
 pd.set_option('display.colheader_justify', 'left')
 
+delimiters = {
+    'tsv': '\t',
+    'csv': ','
+}
 
 
 
@@ -25,9 +26,10 @@ class Table(YAMLObject):
 
 
 
-
 class Dataset(YAMLObject):
     yaml_tag = u'!Dataset'
+
+
 
     def __init__(self, path):
         self.path = path
@@ -36,21 +38,30 @@ class Dataset(YAMLObject):
         self.yaml = f"{self.directory}/{self.name}.yaml"
         self.columns = {}
 
+
+    @property
+    def df(self):
+        names = [c.name for c in self.columns.values()]
+        index_col = [c.name for c in self.columns.values() if c.index]
+        use_cols = [c.name for c in self.columns.values() if c.include]
+        converters = {c.name: c.converter for c in self.columns.values()}
+        parse_dates = [c.name for c in self.columns.values() if c.date]
+        dtype = {c.name: c.dtype for c in self.columns.values() if c.dtype}
+
         df = pd.read_csv(
-            filepath_or_buffer = self.path,
-            delimiter = self.get_delimiter(),
-            encoding  = 'latin1',
-            nrows = 0
+            filepath_or_buffer=self.path,
+            delimiter=delimiters[self.extension],
+            header=0,
+            encoding='latin1',
+            names=names,
+            index_col=index_col,
+            usecols=use_cols,
+            dtype=dtype,
+            parse_dates=parse_dates,
+            converters=converters
         )
 
-        codebook = self.get_codebook(df.columns)
-
-        for name, description in codebook.items():
-            self[name] = Column(
-                identity    = name,
-                name        = name,
-                description = description,
-            )
+        return df
 
 
     def __setitem__(self, key, value):
@@ -72,41 +83,29 @@ class Dataset(YAMLObject):
         return f"{self.name} {self.columns}"
 
 
-    def get_codebook(self, variables):
-        codebook_path = f"{self.directory}/Codebooks/{self.name}.pdf"
-        return extract_codebook(codebook_path, variables)
-
-
-    def get_delimiter(self):
-        delimiters = {
-            'tsv': '\t',
-            'csv': ','
-        }
-        return delimiters[self.extension]
-
-
-    def read(self):
-        names       = [c.name for c in self.columns.values()]
-        index_col   = [c.name for c in self.columns.values() if c.index]
-        use_cols    = [c.name for c in self.columns.values() if c.include]
-        converters  = {c.name:c.converter for c in self.columns.values()}
-        parse_dates = [c.name for c in self.columns.values() if c.date]
-        dtype       = {c.name: c.dtype for c in self.columns.values() if c.dtype}
-
+    def get_columns(self):
         df = pd.read_csv(
-            filepath_or_buffer = self.path,
-            delimiter = self.get_delimiter(),
-            header    = 0,
-            encoding  = 'latin1',
-            names       = names,
-            index_col   = index_col,
-            usecols     = use_cols,
-            #dtype       = dtype,
-            parse_dates = parse_dates,
-            converters  = converters
+            filepath_or_buffer=self.path,
+            delimiter=delimiters[self.extension],
+            encoding='latin1',
+            nrows=0
         )
 
-        return df
+        codebook = extract_codebook(
+            codebook_path = f"{self.directory}/Codebooks/{self.name}.pdf",
+            variables = df.columns,
+            sep = '',
+            default_pattern = "^(\\n)*(?P<desc>.+)(?P<sep>{sep})(?P<var>{var})"
+        )
+
+        pprint(codebook)
+
+        for name, description in codebook.items():
+            self[name] = Column(
+                identity    = name,
+                name        = name,
+                description = description,
+            )
 
 
     def restore(self):
@@ -117,6 +116,7 @@ class Dataset(YAMLObject):
     def dump(self):
         with open(self.yaml, 'w') as file:
             docs = yaml.dump(self, file)
+
 
 
 class Column(YAMLObject):

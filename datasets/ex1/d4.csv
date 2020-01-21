@@ -1,0 +1,4 @@
+Agency,Year,City,State,Assault-JAN,Assault-FEB,Assault-MAR,Murder-JAN,Murder-FEB,Murder-MAR,V1,V2,V3,Update
+AG1,2000,Fullerton,50,0,1,2,a,b,c,x,y,z,20010405
+AG2,2001,Reno,49,3,4,5,d,e,f,x,y,z,20041028
+AG3,2002,Flagstaff,48,6,7,8,g,h,i,x,y,z,20031023
